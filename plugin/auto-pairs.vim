@@ -18,6 +18,7 @@ end
 
 " default pairs base on filetype
 func! AutoPairsDefaultPairs()
+  call writefile([strftime("%c AutoPairsDefaultPairs")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if exists('b:autopairs_defaultpairs')
     return b:autopairs_defaultpairs
   end
@@ -183,6 +184,7 @@ endf
 "   au FileType html let b:AutoPairs = AutoPairsDefine({'<!--' : '-->'}, ['{'])
 "   add <!-- --> pair and remove '{' for html file
 func! AutoPairsDefine(pairs, ...)
+  call writefile([strftime("%c AutoPairsDefine")], "/Users/nick/code/foo/auto-pairs-log", "a")
   let r = AutoPairsDefaultPairs()
   if a:0 > 0
     for open in a:1
@@ -196,6 +198,7 @@ func! AutoPairsDefine(pairs, ...)
 endf
 
 func! AutoPairsInsert(key)
+  call writefile([strftime("%c AutoPairsInsert " . a:key)], "/Users/nick/code/foo/auto-pairs-log", "a")
   if !b:autopairs_enabled
     return a:key
   end
@@ -215,10 +218,10 @@ func! AutoPairsInsert(key)
     let m = matchstr(afterline, '^\v\s*\zs\V'.close)
     if len(ms) > 0
       " process the open pair
-      
+
       " remove inserted pair
-      " eg: if the pairs include < > and  <!-- --> 
-      " when <!-- is detected the inserted pair < > should be clean up 
+      " eg: if the pairs include < > and  <!-- -->
+      " when <!-- is detected the inserted pair < > should be clean up
       let target = ms[1]
       let openPair = ms[2]
       if len(openPair) == 1 && m == openPair
@@ -301,6 +304,7 @@ func! AutoPairsInsert(key)
 endf
 
 func! AutoPairsDelete()
+  call writefile([strftime("%c AutoPairsDelete")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if !b:autopairs_enabled
     return "\<BS>"
   end
@@ -335,6 +339,7 @@ endf
 
 " Fast wrap the word in brackets
 func! AutoPairsFastWrap()
+  call writefile([strftime("%c AutoPairsFastWrap")], "/Users/nick/code/foo/auto-pairs-log", "a")
   let c = @"
   normal! x
   let [before, after, ig] = s:getline()
@@ -365,16 +370,19 @@ func! AutoPairsFastWrap()
 endf
 
 func! AutoPairsJump()
+  call writefile([strftime("%c AutoPairsJump")], "/Users/nick/code/foo/auto-pairs-log", "a")
   call search('["\]'')}]','W')
 endf
 
 func! AutoPairsMoveCharacter(key)
+  call writefile([strftime("%c AutoPairsMoveCharacter " . a:key)], "/Users/nick/code/foo/auto-pairs-log", "a")
   let c = getline(".")[col(".")-1]
   let escaped_key = substitute(a:key, "'", "''", 'g')
   return "\<DEL>\<ESC>:call search("."'".escaped_key."'".")\<CR>a".c."\<LEFT>"
 endf
 
 func! AutoPairsBackInsert()
+  call writefile([strftime("%c AutoPairsBackInsert")], "/Users/nick/code/foo/auto-pairs-log", "a")
   let pair = b:autopairs_saved_pair[0]
   let pos  = b:autopairs_saved_pair[1]
   call setpos('.', pos)
@@ -382,6 +390,7 @@ func! AutoPairsBackInsert()
 endf
 
 func! AutoPairsReturn()
+  call writefile([strftime("%c AutoPairsReturn")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if b:autopairs_enabled == 0
     return ''
   end
@@ -421,6 +430,7 @@ func! AutoPairsReturn()
 endf
 
 func! AutoPairsSpace()
+  call writefile([strftime("%c AutoPairsSpace")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if !b:autopairs_enabled
     return "\<SPACE>"
   end
@@ -443,6 +453,7 @@ func! AutoPairsSpace()
 endf
 
 func! AutoPairsMap(key)
+  call writefile([strftime("%c AutoPairsMap " . a:key)], "/Users/nick/code/foo/auto-pairs-log", "a")
   " | is special key which separate map command from text
   let key = a:key
   if key == '|'
@@ -454,6 +465,7 @@ func! AutoPairsMap(key)
 endf
 
 func! AutoPairsToggle()
+  call writefile([strftime("%c AutoPairsToggle")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if b:autopairs_enabled
     let b:autopairs_enabled = 0
     echo 'AutoPairs Disabled.'
@@ -469,6 +481,7 @@ func! s:sortByLength(i1, i2)
 endf
 
 func! AutoPairsInit()
+  call writefile([strftime("%c AutoPairsInit")], "/Users/nick/code/foo/auto-pairs-log", "a")
   let b:autopairs_loaded  = 1
   if !exists('b:autopairs_enabled')
     let b:autopairs_enabled = 1
@@ -499,7 +512,7 @@ func! AutoPairsInit()
       let opt['multiline'] = 0
     end
     let m = matchlist(close, '\v(.*)//(.*)$')
-    if len(m) > 0 
+    if len(m) > 0
       if m[2] =~ 'n'
         let opt['mapclose'] = 0
       end
@@ -601,6 +614,7 @@ func! s:ExpandMap(map)
 endf
 
 func! AutoPairsTryInit()
+  call writefile([strftime("%c AutoPairsTryInit")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if exists('b:autopairs_loaded')
     return
   end
