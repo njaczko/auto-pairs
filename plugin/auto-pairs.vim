@@ -18,7 +18,6 @@ end
 
 " default pairs base on filetype
 func! AutoPairsDefaultPairs()
-  call writefile([strftime("%c AutoPairsDefaultPairs")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if exists('b:autopairs_defaultpairs')
     return b:autopairs_defaultpairs
   end
@@ -453,7 +452,6 @@ func! AutoPairsSpace()
 endf
 
 func! AutoPairsMap(key)
-  call writefile([strftime("%c AutoPairsMap " . a:key)], "/Users/nick/code/foo/auto-pairs-log", "a")
   " | is special key which separate map command from text
   let key = a:key
   if key == '|'
@@ -481,7 +479,6 @@ func! s:sortByLength(i1, i2)
 endf
 
 func! AutoPairsInit()
-  call writefile([strftime("%c AutoPairsInit")], "/Users/nick/code/foo/auto-pairs-log", "a")
   let b:autopairs_loaded  = 1
   if !exists('b:autopairs_enabled')
     let b:autopairs_enabled = 1
@@ -614,7 +611,6 @@ func! s:ExpandMap(map)
 endf
 
 func! AutoPairsTryInit()
-  call writefile([strftime("%c AutoPairsTryInit")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if exists('b:autopairs_loaded')
     return
   end
