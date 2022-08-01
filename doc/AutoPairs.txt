@@ -134,21 +134,13 @@ Fly Mode (|autopairs-flymode|): >
             world();
         }|
 
-        (then press <M-b> at | to do backinsert)
-        output:
-        {
-            hello();}|
-            world();
-        }
-
         See |Fly Mode| section for details
 
 ==============================================================================
 3. Fly Mode                                                  *autopairs-flymode*
 
 Fly Mode will always force closed-pair jumping instead of inserting. Only for
-")", "}", "]". If jumps in mistake, you can use |g:AutoPairsBackInsert| (default
-Key: <M-b>) to jump back and insert closed pair.
+")", "}", "]".
 
 The most situation maybe you want to insert single closed pair in the string,
 eg: >
@@ -163,7 +155,6 @@ Fly Mode is DISABLED by default. To enable Fly Mode add following to your
 Default Options: >
 
     let g:AutoPairsFlyMode = 0
-    let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 ==============================================================================
 4. Shortcuts                                             *autopairs-shortcuts*
@@ -175,7 +166,6 @@ System Shortcuts:
     <M-p>: Toggle Autopairs (|g:AutoPairsShortcutToggle|)
     <M-e>: Fast Wrap (|g:AutoPairsShortcutFastWrap|)
     <M-n>: Jump to next closed pair (|g:AutoPairsShortcutJump|)
-    <M-b>: BackInsert (|g:AutoPairsShortcutBackInsert|)
 
 
     To rebind keys <M-p>, <M-e> or <M-n> or in case of conflicts with
@@ -245,14 +235,6 @@ Fast wrap the word. All pairs will be considered as a block (including <>).
 Default: <M-n>
 
 Jump to the next closed pair.
-
-
-                                                *g:AutoPairsShortcutBackInsert*
-|g:AutoPairsShortcutBackInsert|                                          string
-
-Default: <M-b>
-
-Work with |autopairs-flymode|, insert the key at the Fly Mode jumped position.
 
 
 

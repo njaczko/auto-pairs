@@ -80,7 +80,6 @@ if !exists('g:AutoPairsShortcutJump')
 endif
 
 " Fly mode will for closed pair to jump to closed pair instead of insert.
-" also support AutoPairsBackInsert to insert pairs where jumped.
 if !exists('g:AutoPairsFlyMode')
   let g:AutoPairsFlyMode = 0
 endif
@@ -89,11 +88,6 @@ endif
 " next line as well.
 if !exists('g:AutoPairsMultilineClose')
   let g:AutoPairsMultilineClose = 1
-endif
-
-" Work with Fly Mode, insert pair where jumped
-if !exists('g:AutoPairsShortcutBackInsert')
-  let g:AutoPairsShortcutBackInsert = '<M-b>'
 endif
 
 if !exists('g:AutoPairsSmartQuotes')
@@ -183,7 +177,6 @@ endf
 "   au FileType html let b:AutoPairs = AutoPairsDefine({'<!--' : '-->'}, ['{'])
 "   add <!-- --> pair and remove '{' for html file
 func! AutoPairsDefine(pairs, ...)
-  call writefile([strftime("%c AutoPairsDefine")], "/Users/nick/code/foo/auto-pairs-log", "a")
   let r = AutoPairsDefaultPairs()
   if a:0 > 0
     for open in a:1
@@ -197,7 +190,6 @@ func! AutoPairsDefine(pairs, ...)
 endf
 
 func! AutoPairsInsert(key)
-  call writefile([strftime("%c AutoPairsInsert " . a:key)], "/Users/nick/code/foo/auto-pairs-log", "a")
   if !b:autopairs_enabled
     return a:key
   end
@@ -303,7 +295,6 @@ func! AutoPairsInsert(key)
 endf
 
 func! AutoPairsDelete()
-  call writefile([strftime("%c AutoPairsDelete")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if !b:autopairs_enabled
     return "\<BS>"
   end
@@ -338,7 +329,6 @@ endf
 
 " Fast wrap the word in brackets
 func! AutoPairsFastWrap()
-  call writefile([strftime("%c AutoPairsFastWrap")], "/Users/nick/code/foo/auto-pairs-log", "a")
   let c = @"
   normal! x
   let [before, after, ig] = s:getline()
@@ -369,27 +359,16 @@ func! AutoPairsFastWrap()
 endf
 
 func! AutoPairsJump()
-  call writefile([strftime("%c AutoPairsJump")], "/Users/nick/code/foo/auto-pairs-log", "a")
   call search('["\]'')}]','W')
 endf
 
 func! AutoPairsMoveCharacter(key)
-  call writefile([strftime("%c AutoPairsMoveCharacter " . a:key)], "/Users/nick/code/foo/auto-pairs-log", "a")
   let c = getline(".")[col(".")-1]
   let escaped_key = substitute(a:key, "'", "''", 'g')
   return "\<DEL>\<ESC>:call search("."'".escaped_key."'".")\<CR>a".c."\<LEFT>"
 endf
 
-func! AutoPairsBackInsert()
-  call writefile([strftime("%c AutoPairsBackInsert")], "/Users/nick/code/foo/auto-pairs-log", "a")
-  let pair = b:autopairs_saved_pair[0]
-  let pos  = b:autopairs_saved_pair[1]
-  call setpos('.', pos)
-  return pair
-endf
-
 func! AutoPairsReturn()
-  call writefile([strftime("%c AutoPairsReturn")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if b:autopairs_enabled == 0
     return ''
   end
@@ -429,7 +408,6 @@ func! AutoPairsReturn()
 endf
 
 func! AutoPairsSpace()
-  call writefile([strftime("%c AutoPairsSpace")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if !b:autopairs_enabled
     return "\<SPACE>"
   end
@@ -463,7 +441,6 @@ func! AutoPairsMap(key)
 endf
 
 func! AutoPairsToggle()
-  call writefile([strftime("%c AutoPairsToggle")], "/Users/nick/code/foo/auto-pairs-log", "a")
   if b:autopairs_enabled
     let b:autopairs_enabled = 0
     echo 'AutoPairs Disabled.'
@@ -570,10 +547,6 @@ func! AutoPairsInit()
 
   if g:AutoPairsShortcutFastWrap != ''
     execute 'inoremap <buffer> <silent> '.g:AutoPairsShortcutFastWrap.' <C-R>=AutoPairsFastWrap()<CR>'
-  end
-
-  if g:AutoPairsShortcutBackInsert != ''
-    execute 'inoremap <buffer> <silent> '.g:AutoPairsShortcutBackInsert.' <C-R>=AutoPairsBackInsert()<CR>'
   end
 
   if g:AutoPairsShortcutToggle != ''

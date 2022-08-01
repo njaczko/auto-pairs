@@ -107,13 +107,6 @@ Features
             world();
         }|
 
-        (then press <M-b> at | to do backinsert)
-        output:
-        {
-            hello();}|
-            world();
-        }
-
         See Fly Mode section for details
 
 *  Multibyte Pairs
@@ -125,8 +118,6 @@ Fly Mode
 --------
 Fly Mode will always force closed-pair jumping instead of inserting. only for ")", "}", "]"
 
-If jumps in mistake, could use AutoPairsBackInsert(Default Key: `<M-b>`) to jump back and insert closed pair.
-
 the most situation maybe want to insert single closed pair in the string, eg ")"
 
 Fly Mode is DISABLED by default.
@@ -136,7 +127,6 @@ add **let g:AutoPairsFlyMode = 1** .vimrc to turn it on
 Default Options:
 
     let g:AutoPairsFlyMode = 0
-    let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 Shortcuts
 ---------
@@ -147,7 +137,6 @@ Shortcuts
         <M-p> : Toggle Autopairs (g:AutoPairsShortcutToggle)
         <M-e> : Fast Wrap (g:AutoPairsShortcutFastWrap)
         <M-n> : Jump to next closed pair (g:AutoPairsShortcutJump)
-        <M-b> : BackInsert (g:AutoPairsShortcutBackInsert)
 
     If <M-p> <M-e> or <M-n> conflict with another keys or want to bind to another keys, add
 
@@ -234,12 +223,6 @@ Options
         When you press the key for the closing pair (e.g. `)`) it jumps past it.
         If set to 1, then it'll jump to the next line, if there is only whitespace.
         If set to 0, then it'll only jump to a closing pair on the same line.
-
-*   g:AutoPairsShortcutBackInsert
-
-        Default : <M-b>
-
-        Work with FlyMode, insert the key at the Fly Mode jumped postion
 
 *   g:AutoPairsMoveCharacter
 
