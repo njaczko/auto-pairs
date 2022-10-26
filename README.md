@@ -1,5 +1,8 @@
-Auto Pairs
-==========
+NOTE(njaczko): I forked this plugin to remove the `AutoPairsBackInsert` mapping
+was causing accidental navigation with typos.
+
+# Auto Pairs
+
 Insert or delete brackets, parens, quotes in pair.
 
 Installation
